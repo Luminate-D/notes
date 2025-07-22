@@ -2,9 +2,7 @@
 import { onMounted, ref } from 'vue';
 
 const notes = ref([
-  { id: 1, date: '01.01.1970 00:00', content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
-  { id: 2, date: '02.01.1970 00:00', content: 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-  { id: 3, date: '03.01.1970 00:00', content: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.' },
+  { id: 1, createdAt: '01.01.1970 00:00', updatedAt: '01.01.01.1970 00:00', content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
 ]);
 
 const error = ref('');
@@ -22,12 +20,8 @@ onMounted(() => {
 
 const content = ref('');
 const addNote = () => {
-  fetch('https://api.lanny.dev/notes', {
+  fetch('https://api.lanny.dev/notes?content=' + encodeURIComponent(content.value), {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ content: content.value }),
   }).then(res => res.json())
     .then(data => {
       notes.value.unshift(data);
@@ -47,7 +41,7 @@ const addNote = () => {
     </div>
     <div class="flex flex-col h-full w-full content-center items-center">
       <div class="flex flex-col w-full max-w-xl gap-3 border-b border-gray-200 pb-3 mb-3" v-for="note in notes">
-        <p class="text-gray-500 font-bold text-sm">{{ note.date }}</p>
+        <p class="text-gray-500 font-bold text-sm">Created At: {{ note.createdAt }}</p>
         <p class="text-base text-gray-800">{{ note.content }}</p>
       </div>
     </div>
