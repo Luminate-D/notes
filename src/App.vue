@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, watchEffect } from 'vue';
+import { ref, watchEffect } from 'vue';
 
 const notes = ref([
   { id: 1, createdAt: '01.01.1970 00:00', updatedAt: '01.01.01.1970 00:00', content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
